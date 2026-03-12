@@ -22,6 +22,7 @@
   .period-tab{font-family:var(--mono);font-size:11px;padding:6px 16px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;letter-spacing:.1em;transition:all .2s;border-radius:2px;}
   .period-tab.active{border-color:var(--accent);color:var(--accent);background:rgba(200,169,110,.08);}
   .main-wrap{max-width:1100px;margin:0 auto;}
+  /* Threshold */
   .threshold-card{background:var(--surface);border:1px solid var(--border);padding:18px;border-radius:4px;margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
   @media(max-width:640px){.threshold-card{grid-template-columns:1fr;}}
   .card-title{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);grid-column:1/-1;}
@@ -29,6 +30,7 @@
   .slider-label-row span:first-child{font-size:11px;color:var(--muted);}
   .slider-val{font-family:var(--mono);font-size:14px;color:var(--accent);}
   input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;}
+  /* KPI */
   .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
   @media(max-width:600px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
   .kpi{background:var(--surface);border:1px solid var(--border);padding:12px;border-radius:4px;text-align:center;}
@@ -36,75 +38,93 @@
   .kpi-value{font-family:var(--mono);font-size:17px;font-weight:500;}
   .kpi-value.ok{color:var(--accent2);}.kpi-value.ng{color:var(--danger);}.kpi-value.neutral{color:var(--accent);}
   .kpi-unit{font-size:10px;color:var(--muted);margin-left:2px;}
+  /* Grid section */
   .grid-section{background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:16px;overflow:hidden;}
-  .section-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+  .section-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);}
   .section-header .card-title{margin:0;padding:0;border:none;grid-column:unset;}
   .sm-btn{font-family:var(--mono);font-size:10px;padding:4px 10px;background:transparent;border:1px solid var(--border);color:var(--muted);cursor:pointer;border-radius:2px;transition:all .2s;letter-spacing:.05em;}
   .sm-btn:hover,.sm-btn.primary{border-color:var(--accent);color:var(--accent);}
   .sm-btn.danger:hover{border-color:var(--danger);color:var(--danger);}
   .grid-scroll{overflow-x:auto;}
-  table.main-tbl{border-collapse:collapse;min-width:700px;width:100%;}
-  table.main-tbl th,table.main-tbl td{border:1px solid var(--border);font-family:var(--mono);font-size:12px;white-space:nowrap;}
-  .sticky-col{position:sticky;left:0;z-index:2;background:var(--surface2) !important;min-width:100px;text-align:left !important;}
-  thead .sticky-col{z-index:3;}
-  .row-label-cell{padding:5px 10px !important;font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;vertical-align:middle;}
-  /* 入力セル */
-  .cell-inp{padding:0 !important;}
-  .cell-inp input{
-    display:block;width:100%;min-width:72px;
-    background:transparent;border:none;
-    color:var(--text);font-family:var(--mono);font-size:12px;
-    padding:7px 8px;text-align:right;outline:none;
-    -moz-appearance:textfield;
+  /* Table */
+  table{border-collapse:collapse;min-width:700px;width:100%;}
+  table th,table td{border:1px solid var(--border);font-family:var(--mono);font-size:12px;white-space:nowrap;}
+  .sticky{position:sticky;left:0;z-index:2;background:var(--surface2) !important;min-width:110px;}
+  thead .sticky{z-index:3;}
+  /* Date header row */
+  .th-date{background:var(--surface2);padding:4px 6px;text-align:center;min-width:80px;color:var(--muted);font-size:10px;}
+  .th-date.f{background:rgba(143,170,124,0.12);color:var(--accent2);}
+  .th-date.c{opacity:.4;}
+  /* Row label */
+  .rl{padding:5px 10px;font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;text-align:left;}
+  /* Input cells - KEY: just make the TD a container */
+  td.inp{padding:0;}
+  td.inp input{
+    display:block;
+    width:100%;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--text);
+    font-family:var(--mono);
+    font-size:12px;
+    padding:7px 8px;
+    text-align:right;
+    cursor:text;
   }
-  .cell-inp input::-webkit-outer-spin-button,
-  .cell-inp input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
-  .cell-inp input:focus{background:rgba(200,169,110,.06);}
-  .cell-inp.fired-col{background:var(--fired-bg) !important;}
-  .cell-inp.fired-col input{color:var(--accent2);}
-  .cell-inp.closed-col{opacity:.3;pointer-events:none;}
-  /* 列クラス */
-  .fired-col{background:rgba(143,170,124,.08);}
-  .closed-col{opacity:.35;}
-  /* 人時生産性行 */
-  tr.row-prod td{padding:4px 8px;text-align:right;font-size:11px;background:var(--surface2);}
-  tr.row-prod td.fired-col{background:rgba(143,170,124,.08);}
-  .prod-ok{color:var(--accent2);}.prod-ng{color:var(--danger);}.prod-warn{color:var(--warn);}.prod-na{color:var(--muted);}
-  /* 判定行 */
-  tr.row-status td{padding:4px 8px;text-align:center;font-size:10px;}
-  tr.row-status td.fired-col{background:rgba(143,170,124,.08);color:var(--accent2);}
-  tr.row-status td.not-fired{color:var(--muted);}
-  /* セパレータ */
-  tr.row-sep td{height:6px;background:var(--bg);border:none;padding:0;}
-  /* スタッフ行 */
-  tr.row-staff td{padding:0 !important;vertical-align:middle;}
-  tr.row-staff td.staff-name-cell{padding:4px 10px !important;min-width:100px;}
-  tr.row-staff td.fired-col{background:var(--fired-bg);}
-  tr.row-staff td.closed-col{opacity:.3;pointer-events:none;}
-  .staff-hi{width:100%;min-width:60px;background:transparent;border:none;color:var(--text);font-family:var(--mono);font-size:12px;padding:7px 8px;text-align:right;outline:none;-moz-appearance:textfield;display:block;}
-  .staff-hi::-webkit-outer-spin-button,.staff-hi::-webkit-inner-spin-button{-webkit-appearance:none;}
-  tr.row-staff td.fired-col .staff-hi{color:var(--accent2);}
-  .staff-hi:focus{background:rgba(200,169,110,.06);}
-  tr.row-staff-header td{background:var(--bg);padding:5px 10px !important;font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;border-top:2px solid var(--border);}
-  tr.row-staff-total td{background:var(--surface2);padding:5px 10px !important;font-size:11px;color:var(--muted);text-align:right;}
-  tr.row-staff-total td.sticky-col{text-align:left;}
-  tr.row-staff-total td.bonus-total{color:var(--accent);font-size:13px;font-weight:500;}
-  tr.row-add td{background:var(--surface2);padding:6px 10px !important;}
-  .closed-toggle{background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:9px;padding:2px 5px;cursor:pointer;border-radius:2px;display:block;margin:2px auto 0;}
-  .closed-toggle.is-closed{border-color:var(--danger);color:var(--danger);}
-  .bonus-total-cell{padding:4px 10px !important;text-align:right;font-size:13px;font-weight:500;color:var(--accent2);}
-  .bonus-total-cell.zero{color:var(--muted);}
+  td.inp input:focus{background:rgba(200,169,110,.07);}
+  td.inp.f{background:var(--fired-bg);}
+  td.inp.f input{color:var(--accent2);}
+  td.inp.c{opacity:.3;pointer-events:none;}
+  /* hide number spinners */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+  input[type=number]{-moz-appearance:textfield;}
+  /* Prod row */
+  .r-prod td{padding:4px 8px;text-align:right;font-size:11px;background:var(--surface2);}
+  .r-prod td.f{background:rgba(143,170,124,.08);}
+  .ok{color:var(--accent2);}.ng2{color:var(--danger);}.warn{color:var(--warn);}.na{color:var(--muted);}
+  /* Status row */
+  .r-status td{padding:4px 8px;text-align:center;font-size:10px;}
+  .r-status td.f{background:rgba(143,170,124,.08);color:var(--accent2);}
+  .r-status td.nf{color:var(--muted);}
+  /* Sep */
+  .r-sep td{height:6px;background:var(--bg);border:none;}
+  /* Staff header */
+  .r-sh td{background:var(--bg);padding:5px 10px;font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;border-top:2px solid var(--border);}
+  /* Staff rows */
+  .r-staff td{padding:0;vertical-align:middle;}
+  .r-staff .sname{padding:4px 10px;min-width:110px;}
+  .r-staff td.f{background:var(--fired-bg);}
+  .r-staff td.c{opacity:.3;pointer-events:none;}
+  .shi{display:block;width:100%;background:transparent;border:none;outline:none;color:var(--text);font-family:var(--mono);font-size:12px;padding:7px 8px;text-align:right;cursor:text;}
+  .shi:focus{background:rgba(200,169,110,.07);}
+  .r-staff td.f .shi{color:var(--accent2);}
+  /* Staff total */
+  .r-st td{background:var(--surface2);padding:5px 10px;font-size:11px;color:var(--muted);text-align:right;}
+  .r-st .sticky{text-align:left;}
+  .btot{color:var(--accent);font-size:13px;font-weight:500;}
+  .btotc{padding:4px 10px;text-align:right;font-size:13px;font-weight:500;color:var(--accent2);}
+  .btotc.z{color:var(--muted);}
+  /* Add row */
+  .r-add td{background:var(--surface2);padding:6px 10px;}
+  /* Closed toggle */
+  .ctog{background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:9px;padding:2px 5px;cursor:pointer;border-radius:2px;display:block;margin:2px auto 0;}
+  .ctog.on{border-color:var(--danger);color:var(--danger);}
+  /* Inline edit */
+  .wi{background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;width:52px;text-align:right;outline:none;padding:1px 2px;}
+  .wi:focus{border-bottom-color:var(--accent);color:var(--text);}
+  .ni{background:transparent;border:none;color:var(--text);font-family:var(--mono);font-size:12px;width:80px;outline:none;}
+  .ni:focus{border-bottom:1px solid var(--accent);}
+  /* Total bar */
   .total-bar{background:var(--surface);border:1px solid var(--accent);padding:16px 22px;border-radius:4px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;}
   .total-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;}
   .total-amount{font-family:var(--mono);font-size:26px;color:var(--accent);}
-  .condition-badge{font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:2px;letter-spacing:.1em;}
-  .has-fired{background:rgba(143,170,124,.15);color:var(--accent2);border:1px solid var(--accent2);}
-  .no-fired{background:rgba(201,123,110,.15);color:var(--danger);border:1px solid var(--danger);}
+  .badge{font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:2px;letter-spacing:.1em;}
+  .badge.hf{background:rgba(143,170,124,.15);color:var(--accent2);border:1px solid var(--accent2);}
+  .badge.nf{background:rgba(201,123,110,.15);color:var(--danger);border:1px solid var(--danger);}
   .footnote{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.04em;line-height:1.9;}
-  .wage-input{background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;width:52px;text-align:right;outline:none;padding:1px 2px;}
-  .wage-input:focus{border-bottom-color:var(--accent);color:var(--text);}
-  .name-input{background:transparent;border:none;color:var(--text);font-family:var(--mono);font-size:12px;width:80px;outline:none;padding:0;}
-  .name-input:focus{border-bottom:1px solid var(--accent);}
+  .sum-cell{background:var(--surface2);text-align:right;padding:4px 10px;font-family:var(--mono);font-size:12px;}
 </style>
 </head>
 <body>
@@ -114,47 +134,45 @@
   <div class="version">STAFF × DAY GRID MODE</div>
 </div>
 <div class="period-tabs">
-  <button class="period-tab active" onclick="setPeriod(0)">3月後半</button>
-  <button class="period-tab" onclick="setPeriod(1)">4月前半</button>
-  <button class="period-tab" onclick="setPeriod(2)">4月後半</button>
+  <button class="period-tab active" onclick="go(0)">3月後半</button>
+  <button class="period-tab" onclick="go(1)">4月前半</button>
+  <button class="period-tab" onclick="go(2)">4月後半</button>
 </div>
 <div class="main-wrap">
   <div class="threshold-card">
     <div class="card-title">日次 発動閾値</div>
     <div>
-      <div class="slider-label-row"><span>売上閾値（1日）</span><span class="slider-val" id="revV">300,000 円</span></div>
-      <input type="range" id="revT" min="50000" max="800000" step="10000" value="300000" oninput="render()">
+      <div class="slider-label-row"><span>売上閾値（1日）</span><span class="slider-val" id="rv">300,000 円</span></div>
+      <input type="range" id="rs" min="50000" max="800000" step="10000" value="300000" oninput="render()">
     </div>
     <div>
-      <div class="slider-label-row"><span>人時生産性閾値（粗利ベース）</span><span class="slider-val" id="prodV">4,480 円/h</span></div>
-      <input type="range" id="prodT" min="1600" max="7200" step="100" value="4480" oninput="render()">
+      <div class="slider-label-row"><span>人時生産性閾値（粗利ベース）</span><span class="slider-val" id="pv">4,480 円/h</span></div>
+      <input type="range" id="ps" min="1600" max="7200" step="100" value="4480" oninput="render()">
     </div>
     <div>
-      <div class="slider-label-row"><span>発動日の時給</span><span class="slider-val" id="fwV">1,400 円/h</span></div>
-      <input type="range" id="fwT" min="1000" max="2500" step="50" value="1400" oninput="render()">
+      <div class="slider-label-row"><span>発動日の時給</span><span class="slider-val" id="wv">1,400 円/h</span></div>
+      <input type="range" id="ws" min="1000" max="2500" step="50" value="1400" oninput="render()">
     </div>
   </div>
   <div class="kpi-row">
-    <div class="kpi"><div class="kpi-label">期間合計売上</div><div class="kpi-value neutral" id="kpiRev">—</div></div>
-    <div class="kpi"><div class="kpi-label">期間平均 人時生産性（粗利）</div><div class="kpi-value neutral" id="kpiProd">—</div></div>
-    <div class="kpi"><div class="kpi-label">発動日数</div><div class="kpi-value neutral" id="kpiFired">0 日</div></div>
-    <div class="kpi"><div class="kpi-label">手当総支給額</div><div class="kpi-value neutral" id="kpiTotal">¥0</div></div>
+    <div class="kpi"><div class="kpi-label">期間合計売上</div><div class="kpi-value neutral" id="kR">—</div></div>
+    <div class="kpi"><div class="kpi-label">期間平均 人時生産性（粗利）</div><div class="kpi-value neutral" id="kP">—</div></div>
+    <div class="kpi"><div class="kpi-label">発動日数</div><div class="kpi-value neutral" id="kF">0 日</div></div>
+    <div class="kpi"><div class="kpi-label">手当総支給額</div><div class="kpi-value neutral" id="kT">¥0</div></div>
   </div>
   <div class="grid-section">
     <div class="section-header">
       <div class="card-title">売上 / 労働時間 / スタッフ別シフト</div>
       <button class="sm-btn" onclick="clearAll()">日別データをクリア</button>
     </div>
-    <div class="grid-scroll">
-      <table class="main-tbl" id="tbl"></table>
-    </div>
+    <div class="grid-scroll"><table id="tbl"></table></div>
   </div>
   <div class="total-bar">
     <div>
       <div class="total-label">手当総支給額（この期間）</div>
-      <div class="total-amount" id="totalAmt">¥0</div>
+      <div class="total-amount" id="ta">¥0</div>
     </div>
-    <div id="badge" class="condition-badge no-fired">発動日 0日</div>
+    <div id="bdg" class="badge nf">発動日 0日</div>
   </div>
   <div class="footnote">
     ※ 人時生産性 = 売上 × 粗利率80% ÷ 総労働時間<br>
@@ -163,153 +181,182 @@
     ※ 緑セル = 発動日
   </div>
 </div>
-<script>
-const GROSS = 0.8;
 
-function makeDays(y,m,d0,n){
+<script>
+const GR = 0.8;
+function mkDays(y,m,d0,n){
   return Array.from({length:n},(_,i)=>{
     const d=new Date(y,m-1,d0+i);
-    return {label:`${d.getMonth()+1}/${d.getDate()}`,dow:'日月火水木金土'[d.getDay()],rev:0,labor:0,closed:false};
+    return {lbl:`${d.getMonth()+1}/${d.getDate()}`,dow:'日月火水木金土'[d.getDay()],rev:0,labor:0,closed:false};
   });
 }
 const periods=[
-  {name:'3月後半',days:makeDays(2026,3,16,16)},
-  {name:'4月前半',days:makeDays(2026,4,1,15)},
-  {name:'4月後半',days:makeDays(2026,4,16,15)},
+  {days:mkDays(2026,3,16,16)},
+  {days:mkDays(2026,4,1,15)},
+  {days:mkDays(2026,4,16,15)},
 ];
 let cp=0;
-function D(){return periods[cp].days;}
+const D=()=>periods[cp].days;
 
 let staff=[
-  {name:'スタッフA',wage:1270,hours:[]},
-  {name:'スタッフB',wage:1270,hours:[]},
-  {name:'スタッフC',wage:1270,hours:[]},
-  {name:'スタッフD',wage:1270,hours:[]},
+  {name:'スタッフA',wage:1270,h:[]},
+  {name:'スタッフB',wage:1270,h:[]},
+  {name:'スタッフC',wage:1270,h:[]},
+  {name:'スタッフD',wage:1270,h:[]},
 ];
-function syncH(){staff.forEach(s=>{while(s.hours.length<D().length)s.hours.push(0);});}
-
+function syncH(){staff.forEach(s=>{while(s.h.length<D().length)s.h.push(0);});}
 function fmt(n){return(isNaN(n)||!isFinite(n))?'—':Math.round(n).toLocaleString('ja-JP');}
-function thresh(){
-  return {
-    revT:+document.getElementById('revT').value,
-    prodT:+document.getElementById('prodT').value,
-    fw:+document.getElementById('fwT').value,
-  };
-}
-function fired(d){
+function T(){return{rt:+document.getElementById('rs').value,pt:+document.getElementById('ps').value,fw:+document.getElementById('ws').value};}
+function isFired(d){
   if(d.closed||!d.labor||!d.rev)return false;
-  const {revT,prodT}=thresh();
-  return d.rev>=revT && (d.rev*GROSS/d.labor)>=prodT;
+  const{rt,pt}=T();
+  return d.rev>=rt&&(d.rev*GR/d.labor)>=pt;
 }
-function setPeriod(i){
+function go(i){
   cp=i;
   document.querySelectorAll('.period-tab').forEach((t,j)=>t.classList.toggle('active',j===i));
   render();
 }
+
+
+function updateKPI(){
+  const ds=D(),{rt,pt,fw}=T();
+  const fm=ds.map(d=>isFired(d));
+  const fc=fm.filter(Boolean).length;
+  const ac=ds.filter(d=>!d.closed).length;
+  let tR=0,tL=0;
+  ds.forEach(d=>{if(!d.closed){tR+=d.rev;tL+=d.labor;}});
+  const avgP=tL>0?tR*GR/tL:0;
+  let grand=0;
+  staff.forEach(s=>{
+    ds.forEach((d,i)=>{if(fm[i])grand+=Math.round((s.h[i]||0)*Math.max(0,fw-s.wage));});
+  });
+  document.getElementById('kR').textContent='¥'+fmt(tR);
+  document.getElementById('kP').innerHTML=fmt(avgP)+'<span class="kpi-unit">円/h</span>';
+  document.getElementById('kF').textContent=fc+' 日';
+  document.getElementById('kF').className='kpi-value '+(fc>0?'ok':'ng');
+  document.getElementById('kT').textContent='¥'+fmt(grand);
+  document.getElementById('kT').className='kpi-value '+(grand>0?'ok':'neutral');
+  document.getElementById('ta').textContent='¥'+fmt(grand);
+  document.getElementById('bdg').textContent=`発動日 ${fc}日 / ${ac}日中`;
+  document.getElementById('bdg').className='badge '+(fc>0?'hf':'nf');
+}
+
 function render(){
   syncH();
-  const ds=D();
-  const {revT,prodT,fw}=thresh();
-  document.getElementById('revV').textContent=fmt(revT)+' 円';
-  document.getElementById('prodV').textContent=fmt(prodT)+' 円/h';
-  document.getElementById('fwV').textContent=fmt(fw)+' 円/h';
+  const ds=D(),{rt,pt,fw}=T();
+  document.getElementById('rv').textContent=fmt(rt)+' 円';
+  document.getElementById('pv').textContent=fmt(pt)+' 円/h';
+  document.getElementById('wv').textContent=fmt(fw)+' 円/h';
 
-  const firedMap=ds.map(d=>fired(d));
-  const firedCount=firedMap.filter(Boolean).length;
-  const active=ds.filter(d=>!d.closed).length;
+  const fm=ds.map(d=>isFired(d));
+  const fc=fm.filter(Boolean).length;
+  const ac=ds.filter(d=>!d.closed).length;
 
-  let totRev=0,totLabor=0;
-  ds.forEach(d=>{if(!d.closed){totRev+=d.rev;totLabor+=d.labor;}});
-  const avgProd=totLabor>0?totRev*GROSS/totLabor:0;
+  let tR=0,tL=0;
+  ds.forEach(d=>{if(!d.closed){tR+=d.rev;tL+=d.labor;}});
+  const avgP=tL>0?tR*GR/tL:0;
 
   let grand=0;
-  const bonuses=staff.map(s=>{
+  const bon=staff.map(s=>{
     let b=0;
-    ds.forEach((d,i)=>{if(firedMap[i])b+=Math.round((s.hours[i]||0)*Math.max(0,fw-s.wage));});
+    ds.forEach((d,i)=>{if(fm[i])b+=Math.round((s.h[i]||0)*Math.max(0,fw-s.wage));});
     grand+=b;return b;
   });
 
-  document.getElementById('kpiRev').textContent='¥'+fmt(totRev);
-  document.getElementById('kpiProd').innerHTML=fmt(avgProd)+'<span class="kpi-unit">円/h</span>';
-  document.getElementById('kpiFired').textContent=firedCount+' 日';
-  document.getElementById('kpiFired').className='kpi-value '+(firedCount>0?'ok':'ng');
-  document.getElementById('kpiTotal').textContent='¥'+fmt(grand);
-  document.getElementById('kpiTotal').className='kpi-value '+(grand>0?'ok':'neutral');
-  document.getElementById('totalAmt').textContent='¥'+fmt(grand);
-  document.getElementById('badge').textContent=`発動日 ${firedCount}日 / ${active}日中`;
-  document.getElementById('badge').className='condition-badge '+(firedCount>0?'has-fired':'no-fired');
+  document.getElementById('kR').textContent='¥'+fmt(tR);
+  document.getElementById('kP').innerHTML=fmt(avgP)+'<span class="kpi-unit">円/h</span>';
+  document.getElementById('kF').textContent=fc+' 日';
+  document.getElementById('kF').className='kpi-value '+(fc>0?'ok':'ng');
+  document.getElementById('kT').textContent='¥'+fmt(grand);
+  document.getElementById('kT').className='kpi-value '+(grand>0?'ok':'neutral');
+  document.getElementById('ta').textContent='¥'+fmt(grand);
+  document.getElementById('bdg').textContent=`発動日 ${fc}日 / ${ac}日中`;
+  document.getElementById('bdg').className='badge '+(fc>0?'hf':'nf');
 
-  const cc=i=>ds[i].closed?'closed-col':firedMap[i]?'fired-col':'';
+  // column class helper
+  const cc=i=>ds[i].closed?'c':fm[i]?'f':'';
+  const N=ds.length;
 
-  // テーブル構築
-  let h='<thead>';
-  // 日付行
-  h+=`<tr><th class="sticky-col" rowspan="2" style="vertical-align:middle;padding:6px 10px;font-size:10px;letter-spacing:.1em;">日付</th>`;
+  let h='<thead><tr>';
+  // sticky corner spanning 2 header rows
+  h+=`<th class="sticky" style="text-align:left;padding:6px 10px;font-size:10px;color:var(--muted);letter-spacing:.1em;vertical-align:bottom;">日付</th>`;
+  // date headers
   ds.forEach((d,i)=>{
-    h+=`<th class="${cc(i)}" style="text-align:center;padding:4px 6px;min-width:80px;">
-      <div style="font-size:11px;">${d.label}</div>
-      <div style="font-size:10px;color:var(--muted);">${d.dow}</div>
-      <button class="closed-toggle${d.closed?' is-closed':''}" onclick="D()[${i}].closed=!D()[${i}].closed;render()">${d.closed?'定休':'　'}</button>
+    const c=cc(i);
+    h+=`<th class="th-date ${c}" style="min-width:80px;">
+      <div>${d.lbl}</div>
+      <div style="font-size:9px;color:var(--muted);">${d.dow}</div>
+      <button class="ctog${d.closed?' on':''}" onclick="D()[${i}].closed=!D()[${i}].closed;render()">${d.closed?'定休':'　'}</button>
     </th>`;
   });
-  h+=`<th style="background:var(--surface2);padding:6px 10px;text-align:right;color:var(--muted);font-size:9px;">合計/平均</th></tr>`;
+  h+=`<th style="background:var(--surface2);padding:6px 8px;text-align:right;color:var(--muted);font-size:9px;min-width:80px;">合計/平均</th></tr>`;
 
   // 売上行
-  h+=`<tr><th class="sticky-col row-label-cell">売上（円）</th>`;
+  h+=`<tr><th class="sticky" style="text-align:left;padding:5px 10px;font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;">売上（円）</th>`;
   ds.forEach((d,i)=>{
-    h+=`<td class="cell-inp ${cc(i)}"><input type="number" value="${d.rev||''}" placeholder="0" ${d.closed?'disabled':''} oninput="D()[${i}].rev=+this.value||0;render()"></td>`;
+    const c=cc(i);
+    h+=`<td class="inp ${c}"><input type="number" value="${d.rev||''}" placeholder="0" ${d.closed?'disabled':''} oninput="D()[${i}].rev=+this.value||0;updateKPI()" onchange="render()"></td>`;
   });
-  h+=`<td style="background:var(--surface2);text-align:right;padding:4px 10px;color:var(--accent);font-size:12px;">¥${fmt(totRev)}</td></tr>`;
-  h+='</thead><tbody>';
+  h+=`<td class="sum-cell" style="color:var(--accent);">¥${fmt(tR)}</td></tr>`;
 
   // 総労働時間行
-  h+=`<tr><td class="sticky-col row-label-cell">総労働時間（h）</td>`;
+  h+=`<tr><th class="sticky" style="text-align:left;padding:5px 10px;font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;">総労働時間（h）</th>`;
   ds.forEach((d,i)=>{
-    h+=`<td class="cell-inp ${cc(i)}"><input type="number" value="${d.labor||''}" placeholder="0.0" step="0.5" ${d.closed?'disabled':''} oninput="D()[${i}].labor=+this.value||0;render()"></td>`;
+    const c=cc(i);
+    h+=`<td class="inp ${c}"><input type="number" value="${d.labor||''}" placeholder="0.0" step="0.5" ${d.closed?'disabled':''} oninput="D()[${i}].labor=+this.value||0;updateKPI()" onchange="render()"></td>`;
   });
-  h+=`<td style="background:var(--surface2);text-align:right;padding:4px 10px;color:var(--muted);font-size:12px;">${fmt(totLabor)} h</td></tr>`;
+  h+=`<td class="sum-cell">${fmt(tL)} h</td></tr>`;
+  h+='</thead><tbody>';
 
-  // 人時生産性行
-  h+=`<tr class="row-prod"><td class="sticky-col row-label-cell">人時生産性（粗利）</td>`;
+  // 人時生産性
+  h+=`<tr class="r-prod"><td class="sticky rl" style="font-size:9px;">人時生産性（粗利）</td>`;
   ds.forEach((d,i)=>{
-    let cls='prod-na',val='—';
-    if(!d.closed&&d.labor>0){const p=d.rev*GROSS/d.labor;cls=p>=prodT?'prod-ok':p>=prodT*.85?'prod-warn':'prod-ng';val=fmt(p);}
-    h+=`<td class="${cc(i)} ${cls}" style="text-align:right;">${val}</td>`;
+    const c=cc(i);
+    let cls='na',val='—';
+    if(!d.closed&&d.labor>0){const p=d.rev*GR/d.labor;cls=p>=pt?'ok':p>=pt*.85?'warn':'ng2';val=fmt(p);}
+    h+=`<td class="${c} ${cls}">${val}</td>`;
   });
-  h+=`<td style="text-align:right;padding:4px 10px;color:var(--muted);font-size:11px;">${fmt(avgProd)}</td></tr>`;
+  h+=`<td class="sum-cell">${fmt(avgP)}</td></tr>`;
 
-  // 判定行
-  h+=`<tr class="row-status"><td class="sticky-col row-label-cell">判定</td>`;
+  // 判定
+  h+=`<tr class="r-status"><td class="sticky rl" style="font-size:9px;">判定</td>`;
   ds.forEach((d,i)=>{
-    if(d.closed){h+=`<td class="closed-col" style="text-align:center;color:var(--muted);">—</td>`;return;}
-    if(firedMap[i]){h+=`<td class="fired-col" style="text-align:center;color:var(--accent2);font-weight:500;">✓ 発動</td>`;return;}
-    h+=`<td class="not-fired" style="text-align:center;color:var(--muted);">非発動</td>`;
+    if(d.closed){h+=`<td class="c" style="text-align:center;color:var(--muted);">—</td>`;return;}
+    if(fm[i]){h+=`<td class="f" style="text-align:center;color:var(--accent2);font-weight:500;">✓ 発動</td>`;return;}
+    h+=`<td class="nf" style="text-align:center;color:var(--muted);">非発動</td>`;
   });
-  h+=`<td style="text-align:right;padding:4px 10px;color:var(--accent2);font-size:11px;">${firedCount}日発動</td></tr>`;
+  h+=`<td class="sum-cell" style="color:var(--accent2);">${fc}日発動</td></tr>`;
 
-  h+=`<tr class="row-sep"><td colspan="${ds.length+2}"></td></tr>`;
-  h+=`<tr class="row-staff-header"><td class="sticky-col" colspan="${ds.length+2}">スタッフ別 労働時間（h）— 緑セル（発動日）に入力した時間に差額時給が適用されます</td></tr>`;
+  // セパレータ
+  h+=`<tr class="r-sep"><td colspan="${N+2}"></td></tr>`;
+  h+=`<tr class="r-sh"><td class="sticky" colspan="${N+2}" style="text-align:left;">スタッフ別 労働時間（h）— 緑セル（発動日）に差額時給が適用されます</td></tr>`;
 
+  // スタッフ行
   staff.forEach((s,si)=>{
-    h+=`<tr class="row-staff"><td class="sticky-col staff-name-cell">
-      <input class="name-input" type="text" value="${s.name}" onchange="staff[${si}].name=this.value;render()"><br>
-      <input class="wage-input" type="number" value="${s.wage}" min="900" max="3000" oninput="staff[${si}].wage=+this.value;render()"><span style="font-size:9px;color:var(--muted);">円/h</span>
+    h+=`<tr class="r-staff"><td class="sticky sname">
+      <input class="ni" type="text" value="${s.name}" onchange="staff[${si}].name=this.value"><br>
+      <input class="wi" type="number" value="${s.wage}" min="900" max="3000" oninput="staff[${si}].wage=+this.value;render()">
+      <span style="font-size:9px;color:var(--muted);">円/h</span>
     </td>`;
     ds.forEach((d,di)=>{
-      h+=`<td class="row-staff ${cc(di)}" style="padding:0;"><input class="staff-hi" type="number" value="${s.hours[di]||''}" placeholder="—" step="0.5" min="0" max="24" ${d.closed?'disabled':''} oninput="staff[${si}].hours[${di}]=+this.value||0;render()"></td>`;
+      const c=cc(di);
+      h+=`<td class="${c}" style="padding:0;"><input class="shi" type="number" value="${s.h[di]||''}" placeholder="—" step="0.5" min="0" max="24" ${d.closed?'disabled':''} oninput="staff[${si}].h[${di}]=+this.value||0;updateKPI()" onchange="render()"></td>`;
     });
-    h+=`<td class="bonus-total-cell${bonuses[si]>0?'':' zero'}">¥${fmt(bonuses[si])}</td></tr>`;
+    h+=`<td class="btotc${bon[si]>0?'':' z'}">¥${fmt(bon[si])}</td></tr>`;
   });
 
-  h+=`<tr class="row-staff-total"><td class="sticky-col">差額時給</td>`;
+  // 差額時給行
+  h+=`<tr class="r-st"><td class="sticky">差額時給</td>`;
   ds.forEach((d,i)=>{
-    h+=firedMap[i]
-      ?`<td class="fired-col" style="text-align:right;color:var(--accent2);">+${fmt(fw-(staff[0]?.wage||1270))}</td>`
+    h+=fm[i]
+      ?`<td style="text-align:right;color:var(--accent2);">+${fmt(fw-(staff[0]?.wage||1270))}</td>`
       :`<td style="text-align:center;color:var(--muted);">—</td>`;
   });
-  h+=`<td class="bonus-total" style="text-align:right;padding:4px 10px;">¥${fmt(grand)}</td></tr>`;
+  h+=`<td class="btot" style="text-align:right;padding:4px 10px;">¥${fmt(grand)}</td></tr>`;
 
-  h+=`<tr class="row-add"><td colspan="${ds.length+2}">
+  // スタッフ追加行
+  h+=`<tr class="r-add"><td colspan="${N+2}">
     <button class="sm-btn primary" onclick="addStaff()">+ スタッフ追加</button>
     ${staff.length>1?`<button class="sm-btn danger" onclick="staff.pop();render()" style="margin-left:6px;">− 最後のスタッフを削除</button>`:''}
   </td></tr></tbody>`;
@@ -317,8 +364,8 @@ function render(){
   document.getElementById('tbl').innerHTML=h;
 }
 
-function clearAll(){D().forEach(d=>{d.rev=0;d.labor=0;d.closed=false;});staff.forEach(s=>s.hours.fill(0));render();}
-function addStaff(){staff.push({name:'スタッフ'+String.fromCharCode(65+staff.length),wage:1270,hours:Array(D().length).fill(0)});render();}
+function clearAll(){D().forEach(d=>{d.rev=0;d.labor=0;d.closed=false;});staff.forEach(s=>s.h.fill(0));render();}
+function addStaff(){staff.push({name:'スタッフ'+String.fromCharCode(65+staff.length),wage:1270,h:Array(D().length).fill(0)});render();}
 
 render();
 </script>
