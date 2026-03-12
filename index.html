@@ -8,19 +8,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=DM+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --bg: #0f0e0c;
-    --surface: #1a1814;
-    --surface2: #222019;
-    --border: #2e2b25;
-    --accent: #c8a96e;
-    --accent2: #8faa7c;
-    --danger: #c97b6e;
-    --warn: #c8a040;
-    --text: #e8e2d8;
-    --muted: #7a7060;
-    --fired-bg: rgba(143,170,124,0.10);
-    --mono: 'DM Mono', monospace;
-    --serif: 'Noto Serif JP', serif;
+    --bg: #0f0e0c; --surface: #1a1814; --surface2: #222019; --border: #2e2b25;
+    --accent: #c8a96e; --accent2: #8faa7c; --danger: #c97b6e; --warn: #c8a040;
+    --text: #e8e2d8; --muted: #7a7060; --fired-bg: rgba(143,170,124,0.10);
+    --mono: 'DM Mono', monospace; --serif: 'Noto Serif JP', serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: var(--serif); min-height: 100vh; padding: 28px 12px 60px; }
@@ -36,17 +27,25 @@
 
   .main-wrap { max-width: 1100px; margin: 0 auto; }
 
-  /* threshold */
   .threshold-card { background: var(--surface); border: 1px solid var(--border); padding: 18px; border-radius: 4px; margin-bottom: 16px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
   @media(max-width:640px){ .threshold-card { grid-template-columns: 1fr; } }
   .card-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); grid-column: 1/-1; }
+
   .slider-wrap { }
-  .slider-label-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-  .slider-label-row span:first-child { font-size: 11px; color: var(--muted); }
-  .slider-val { font-family: var(--mono); font-size: 14px; color: var(--accent); }
+  .slider-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 8px; }
+  .slider-label-row .lbl { font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .thresh-direct { display: flex; align-items: center; gap: 3px; }
+  .thresh-input {
+    font-family: var(--mono); font-size: 14px; color: var(--accent);
+    background: transparent; border: none; border-bottom: 1px solid rgba(200,169,110,0.3);
+    width: 88px; text-align: right; outline: none; padding: 1px 2px;
+    -moz-appearance: textfield;
+  }
+  .thresh-input::-webkit-inner-spin-button { opacity: 0.4; }
+  .thresh-input:focus { border-bottom-color: var(--accent); background: rgba(200,169,110,0.04); }
+  .thresh-unit { font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
   input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
 
-  /* KPI */
   .kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 16px; }
   @media(max-width:600px){ .kpi-row { grid-template-columns: repeat(2,1fr); } }
   .kpi { background: var(--surface); border: 1px solid var(--border); padding: 12px; border-radius: 4px; text-align: center; }
@@ -55,7 +54,6 @@
   .kpi-value.ok { color: var(--accent2); } .kpi-value.ng { color: var(--danger); } .kpi-value.neutral { color: var(--accent); }
   .kpi-unit { font-size: 10px; color: var(--muted); margin-left: 2px; }
 
-  /* ===== MAIN GRID SECTION ===== */
   .grid-section { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 16px; overflow: hidden; }
   .section-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
   .section-header .card-title { margin: 0; padding: 0; border: none; grid-column: unset; }
@@ -64,27 +62,19 @@
   .sm-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
 
   .grid-scroll { overflow-x: auto; }
-
-  /* The combined grid table */
   table.main-tbl { border-collapse: collapse; min-width: 700px; width: 100%; }
-
   table.main-tbl th, table.main-tbl td { border: 1px solid var(--border); font-family: var(--mono); font-size: 12px; white-space: nowrap; }
 
-  /* header rows */
   table.main-tbl thead tr.row-date th { background: var(--surface2); padding: 6px 10px; color: var(--muted); font-size: 10px; letter-spacing: 0.1em; text-align: center; }
   table.main-tbl thead tr.row-date th.fired-col { background: rgba(143,170,124,0.12); color: var(--accent2); }
   table.main-tbl thead tr.row-date th.closed-col { opacity: 0.4; }
 
-  table.main-tbl thead tr.row-rev th,
-  table.main-tbl thead tr.row-labor th { background: var(--surface2); padding: 0; }
-
-  table.main-tbl thead tr.row-rev th .row-label,
-  table.main-tbl thead tr.row-labor th .row-label { display: block; padding: 4px 8px; font-size: 9px; letter-spacing: 0.15em; color: var(--muted); border-bottom: 1px solid var(--border); }
-
-  .sticky-col { position: sticky; left: 0; z-index: 2; background: var(--surface2) !important; min-width: 90px; text-align: left !important; }
+  /* fix: sticky row-label cell uses td not th in tbody */
+  .sticky-col { position: sticky; left: 0; z-index: 2; background: var(--surface2) !important; min-width: 100px; text-align: left !important; }
   thead .sticky-col { z-index: 3; }
 
-  /* input cells */
+  .row-label-cell { padding: 5px 10px !important; font-size: 9px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; vertical-align: middle; }
+
   .cell-input { padding: 0 !important; }
   .cell-input input { width: 100%; min-width: 70px; background: transparent; border: none; color: var(--text); font-family: var(--mono); font-size: 12px; padding: 6px 8px; text-align: right; outline: none; }
   .cell-input input:focus { background: rgba(200,169,110,0.05); }
@@ -92,7 +82,6 @@
   .cell-input.fired-col input { color: var(--accent2); }
   .cell-input.closed-col { opacity: 0.3; pointer-events: none; }
 
-  /* prod row */
   tr.row-prod td { padding: 4px 8px; text-align: right; font-size: 11px; background: var(--surface2); }
   tr.row-prod td.fired-col { background: rgba(143,170,124,0.08); }
   tr.row-prod td.prod-ok { color: var(--accent2); }
@@ -100,44 +89,32 @@
   tr.row-prod td.prod-warn { color: var(--warn); }
   tr.row-prod td.prod-na { color: var(--muted); }
 
-  /* status row */
   tr.row-status td { padding: 4px 8px; text-align: center; font-size: 10px; }
   tr.row-status td.fired-col { background: rgba(143,170,124,0.08); color: var(--accent2); }
   tr.row-status td.not-fired { color: var(--muted); }
   tr.row-status td.closed-col { color: var(--muted); opacity: 0.4; }
 
-  /* separator */
   tr.row-sep td { height: 6px; background: var(--bg); border-left: none; border-right: none; padding: 0; }
 
-  /* staff rows */
   tr.row-staff td { padding: 0 !important; vertical-align: middle; }
-  tr.row-staff td.staff-name-cell { padding: 4px 10px !important; color: var(--text); font-size: 12px; min-width: 90px; }
-  tr.row-staff td.wage-cell { padding: 4px 8px !important; text-align: right; color: var(--muted); font-size: 11px; }
+  tr.row-staff td.staff-name-cell { padding: 4px 10px !important; color: var(--text); font-size: 12px; min-width: 100px; }
   tr.row-staff td.bonus-total-cell { padding: 4px 10px !important; text-align: right; font-size: 13px; font-weight: 500; color: var(--accent2); }
   tr.row-staff td.bonus-total-cell.zero { color: var(--muted); }
-
   tr.row-staff td .staff-hours-input { width: 100%; min-width: 60px; background: transparent; border: none; color: var(--text); font-family: var(--mono); font-size: 12px; padding: 6px 8px; text-align: right; outline: none; }
   tr.row-staff td.fired-col .staff-hours-input { color: var(--accent2); }
   tr.row-staff td.fired-col { background: var(--fired-bg); }
   tr.row-staff td.closed-col { opacity: 0.3; pointer-events: none; }
   tr.row-staff td .staff-hours-input:focus { background: rgba(200,169,110,0.05); }
 
-  /* staff sub-header */
   tr.row-staff-header td { background: var(--bg); padding: 5px 10px !important; font-size: 9px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; border-top: 2px solid var(--border); }
-
-  /* staff total row */
   tr.row-staff-total td { background: var(--surface2); padding: 5px 10px !important; font-size: 11px; color: var(--muted); text-align: right; }
   tr.row-staff-total td.sticky-col { text-align: left; color: var(--muted); }
   tr.row-staff-total td.bonus-total-cell { color: var(--accent); font-size: 13px; font-weight: 500; }
-
-  /* add staff btn row */
   tr.row-add td { background: var(--surface2); padding: 6px 10px !important; }
 
-  /* closed toggle in header */
   .closed-toggle { background: none; border: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 9px; padding: 2px 5px; cursor: pointer; border-radius: 2px; display: block; margin: 2px auto 0; }
   .closed-toggle.is-closed { border-color: var(--danger); color: var(--danger); }
 
-  /* total bar */
   .total-bar { background: var(--surface); border: 1px solid var(--accent); padding: 16px 22px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
   .total-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
   .total-amount { font-family: var(--mono); font-size: 26px; color: var(--accent); }
@@ -147,7 +124,6 @@
 
   .footnote { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.04em; line-height: 1.9; }
 
-  /* wage edit inline */
   .wage-input { background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 11px; width: 52px; text-align: right; outline: none; padding: 1px 2px; }
   .wage-input:focus { border-bottom-color: var(--accent); color: var(--text); }
   .name-input { background: transparent; border: none; color: var(--text); font-family: var(--mono); font-size: 12px; width: 80px; outline: none; padding: 0; }
@@ -173,16 +149,34 @@
   <div class="threshold-card">
     <div class="card-title">日次 発動閾値</div>
     <div class="slider-wrap">
-      <div class="slider-label-row"><span>売上閾値（1日）</span><span class="slider-val" id="revThreshVal">300,000 円</span></div>
-      <input type="range" id="revThresh" min="50000" max="800000" step="10000" value="300000" oninput="render()">
+      <div class="slider-label-row">
+        <span class="lbl">売上閾値（1日）</span>
+        <div class="thresh-direct">
+          <input class="thresh-input" type="number" id="revThreshNum" value="300000" min="50000" max="800000" step="10000" oninput="syncSlider('revThresh','revThreshNum');render()">
+          <span class="thresh-unit">円</span>
+        </div>
+      </div>
+      <input type="range" id="revThresh" min="50000" max="800000" step="10000" value="300000" oninput="syncNum('revThresh','revThreshNum');render()">
     </div>
     <div class="slider-wrap">
-      <div class="slider-label-row"><span>人時生産性閾値</span><span class="slider-val" id="prodThreshVal">5,600 円/h</span></div>
-      <input type="range" id="prodThresh" min="2000" max="9000" step="100" value="5600" oninput="render()">
+      <div class="slider-label-row">
+        <span class="lbl">人時生産性閾値</span>
+        <div class="thresh-direct">
+          <input class="thresh-input" type="number" id="prodThreshNum" value="5600" min="2000" max="9000" step="100" oninput="syncSlider('prodThresh','prodThreshNum');render()">
+          <span class="thresh-unit">円/h</span>
+        </div>
+      </div>
+      <input type="range" id="prodThresh" min="2000" max="9000" step="100" value="5600" oninput="syncNum('prodThresh','prodThreshNum');render()">
     </div>
     <div class="slider-wrap">
-      <div class="slider-label-row"><span>発動日の時給</span><span class="slider-val" id="firedWageVal">1,400 円/h</span></div>
-      <input type="range" id="firedWage" min="1000" max="2500" step="50" value="1400" oninput="render()">
+      <div class="slider-label-row">
+        <span class="lbl">発動日の時給</span>
+        <div class="thresh-direct">
+          <input class="thresh-input" type="number" id="firedWageNum" value="1400" min="1000" max="2500" step="50" oninput="syncSlider('firedWage','firedWageNum');render()">
+          <span class="thresh-unit">円/h</span>
+        </div>
+      </div>
+      <input type="range" id="firedWage" min="1000" max="2500" step="50" value="1400" oninput="syncNum('firedWage','firedWageNum');render()">
     </div>
   </div>
 
@@ -196,9 +190,7 @@
   <div class="grid-section">
     <div class="section-header">
       <div class="card-title">売上 / 労働時間 / スタッフ別シフト</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;">
-        <button class="sm-btn" onclick="clearDayData()">日別データをクリア</button>
-      </div>
+      <button class="sm-btn" onclick="clearDayData()">日別データをクリア</button>
     </div>
     <div class="grid-scroll">
       <table class="main-tbl" id="mainTable"></table>
@@ -221,14 +213,19 @@
 </div>
 
 <script>
+function syncNum(rangeId, numId){
+  document.getElementById(numId).value = document.getElementById(rangeId).value;
+}
+function syncSlider(rangeId, numId){
+  const v = +document.getElementById(numId).value;
+  const el = document.getElementById(rangeId);
+  if(v >= +el.min && v <= +el.max) el.value = v;
+}
+
 function makeDefaultDays(y,m,dStart,count){
   return Array.from({length:count},(_,i)=>{
     const d=new Date(y,m-1,dStart+i);
-    return {
-      label:`${d.getMonth()+1}/${d.getDate()}`,
-      dow:'日月火水木金土'[d.getDay()],
-      revenue:0, labor:0, closed:false
-    };
+    return { label:`${d.getMonth()+1}/${d.getDate()}`, dow:'日月火水木金土'[d.getDay()], revenue:0, labor:0, closed:false };
   });
 }
 
@@ -247,27 +244,21 @@ let staffList=[
   {name:'スタッフD', wage:1270, hours:[]},
 ];
 
-// ensure staffList[i].hours has entries for all days
-function syncHours(){
-  staffList.forEach(s=>{
-    while(s.hours.length < days().length) s.hours.push(0);
-  });
-}
-
+function syncHours(){ staffList.forEach(s=>{ while(s.hours.length<days().length) s.hours.push(0); }); }
 function fmt(n){if(isNaN(n)||!isFinite(n))return '—';return Math.round(n).toLocaleString('ja-JP');}
 
 function getThresh(){
   return {
-    revT:+document.getElementById('revThresh').value,
-    prodT:+document.getElementById('prodThresh').value,
-    fw:+document.getElementById('firedWage').value,
+    revT:+document.getElementById('revThreshNum').value,
+    prodT:+document.getElementById('prodThreshNum').value,
+    fw:+document.getElementById('firedWageNum').value,
   };
 }
 
 function isFired(d){
   if(d.closed||!d.labor||!d.revenue) return false;
   const {revT,prodT}=getThresh();
-  return d.revenue>=revT && (d.revenue/d.labor)>=prodT;
+  return d.revenue>=revT && (d.revenue*0.8/d.labor)>=prodT;
 }
 
 function setPeriod(i){
@@ -281,33 +272,22 @@ function render(){
   const ds=days();
   const {revT,prodT,fw}=getThresh();
 
-  document.getElementById('revThreshVal').textContent=fmt(revT)+' 円';
-  document.getElementById('prodThreshVal').textContent=fmt(prodT)+' 円/h';
-  document.getElementById('firedWageVal').textContent=fmt(fw)+' 円/h';
-
   const fired=ds.map(d=>isFired(d));
   const firedCount=fired.filter(Boolean).length;
   const activeDays=ds.filter(d=>!d.closed).length;
 
   let totalRev=0,totalLabor=0;
   ds.forEach(d=>{if(!d.closed){totalRev+=d.revenue||0;totalLabor+=d.labor||0;}});
-  const avgProd=totalLabor>0?totalRev/totalLabor:0;
+  const avgProd=totalLabor>0?totalRev*0.8/totalLabor:0;
 
-  // staff bonuses
   let grandTotal=0;
   const staffBonuses=staffList.map(s=>{
     let total=0;
-    ds.forEach((d,i)=>{
-      if(fired[i]){
-        const diff=Math.max(0,fw-s.wage);
-        total+=Math.round((s.hours[i]||0)*diff);
-      }
-    });
+    ds.forEach((d,i)=>{ if(fired[i]){ const diff=Math.max(0,fw-s.wage); total+=Math.round((s.hours[i]||0)*diff); } });
     grandTotal+=total;
     return total;
   });
 
-  // KPI
   document.getElementById('kpiRev').textContent='¥'+fmt(totalRev);
   document.getElementById('kpiProd').innerHTML=fmt(avgProd)+'<span class="kpi-unit">円/h</span>';
   document.getElementById('kpiFired').textContent=firedCount+' 日';
@@ -318,57 +298,49 @@ function render(){
   document.getElementById('condBadge').textContent=`発動日 ${firedCount}日 / ${activeDays}日中`;
   document.getElementById('condBadge').className='condition-badge '+(firedCount>0?'has-fired':'no-fired');
 
-  // Build table HTML
   const colClass=(i)=>ds[i].closed?'closed-col':fired[i]?'fired-col':'';
 
   let html='<thead>';
-
-  // Row 1: date headers
-  html+=`<tr class="row-date"><th class="sticky-col" rowspan="2" style="vertical-align:bottom;padding:6px 10px;">日付</th>`;
+  html+=`<tr class="row-date"><th class="sticky-col" rowspan="2" style="vertical-align:middle;padding:6px 10px;font-size:10px;letter-spacing:0.1em;">日付</th>`;
   ds.forEach((d,i)=>{
     const cc=colClass(i);
     html+=`<th class="${cc}" style="text-align:center;padding:4px 6px;min-width:76px;">
-      <div style="font-size:11px;letter-spacing:0.05em;">${d.label}</div>
+      <div style="font-size:11px;">${d.label}</div>
       <div style="font-size:10px;color:var(--muted);">${d.dow}</div>
       <button class="closed-toggle ${d.closed?'is-closed':''}" onclick="toggleClosed(${i})">${d.closed?'定休':'　'}</button>
     </th>`;
   });
-  html+=`<th style="background:var(--surface2);padding:6px 10px;text-align:right;color:var(--muted);font-size:9px;letter-spacing:0.15em;">合計 / 平均</th></tr>`;
+  html+=`<th style="background:var(--surface2);padding:6px 10px;text-align:right;color:var(--muted);font-size:9px;letter-spacing:0.1em;">合計/平均</th></tr>`;
 
-  // Row 2: 売上 inputs
-  html+=`<tr class="row-rev"><th class="sticky-col"><span class="row-label">売上 (円)</span></th>`;
+  // 売上行ヘッダー
+  html+=`<tr><th class="sticky-col row-label-cell">売上（円）</th>`;
   ds.forEach((d,i)=>{
     const cc=colClass(i);
-    html+=`<td class="cell-input ${cc}"><input type="number" value="${d.revenue||''}" min="0" step="1000" placeholder="0" ${d.closed?'disabled':''} oninput="days()[${i}].revenue=+this.value||0;render()"></td>`;
+    html+=`<td class="cell-input ${cc}"><input type="text" inputmode="numeric" value="${d.revenue||''}" placeholder="0" ${d.closed?'disabled':''} style="ime-mode:disabled;" oninput="days()[${i}].revenue=+(this.value.replace(/[^0-9]/g,''))||0;render()"></td>`;
   });
   html+=`<td style="background:var(--surface2);text-align:right;padding:4px 10px;color:var(--accent);font-size:12px;">¥${fmt(totalRev)}</td></tr>`;
-
   html+='</thead><tbody>';
 
-  // 総労働時間 row
-  html+=`<tr class="row-rev"><td class="sticky-col"><span class="row-label">総労働時間 (h)</span></td>`;
+  // 総労働時間行
+  html+=`<tr><td class="sticky-col row-label-cell">総労働時間（h）</td>`;
   ds.forEach((d,i)=>{
     const cc=colClass(i);
-    html+=`<td class="cell-input ${cc}"><input type="number" value="${d.labor||''}" min="0" step="0.5" placeholder="0.0" ${d.closed?'disabled':''} oninput="days()[${i}].labor=+this.value||0;render()"></td>`;
+    html+=`<td class="cell-input ${cc}"><input type="text" inputmode="decimal" value="${d.labor||''}" placeholder="0.0" ${d.closed?'disabled':''} oninput="days()[${i}].labor=+(this.value)||0;render()"></td>`;
   });
   html+=`<td style="background:var(--surface2);text-align:right;padding:4px 10px;color:var(--muted);font-size:12px;">${fmt(totalLabor)} h</td></tr>`;
 
-  // 人時生産性 row
-  html+=`<tr class="row-prod"><td class="sticky-col" style="text-align:left;font-size:9px;letter-spacing:0.1em;color:var(--muted);padding:4px 10px;">人時生産性</td>`;
+  // 人時生産性行
+  html+=`<tr class="row-prod"><td class="sticky-col row-label-cell">人時生産性</td>`;
   ds.forEach((d,i)=>{
     const cc=colClass(i);
     let cls='prod-na', val='—';
-    if(!d.closed && d.labor>0){
-      const p=d.revenue/d.labor;
-      cls=p>=prodT?'prod-ok':p>=prodT*0.85?'prod-warn':'prod-ng';
-      val=fmt(p);
-    }
+    if(!d.closed && d.labor>0){ const p=d.revenue*0.8/d.labor; cls=p>=prodT?'prod-ok':p>=prodT*0.85?'prod-warn':'prod-ng'; val=fmt(p); }
     html+=`<td class="${cc} ${cls}" style="text-align:right;">${val}</td>`;
   });
   html+=`<td style="text-align:right;padding:4px 10px;color:var(--muted);font-size:11px;">${fmt(avgProd)}</td></tr>`;
 
-  // 判定 row
-  html+=`<tr class="row-status"><td class="sticky-col" style="text-align:left;font-size:9px;letter-spacing:0.1em;color:var(--muted);padding:4px 10px;">判定</td>`;
+  // 判定行
+  html+=`<tr class="row-status"><td class="sticky-col row-label-cell">判定</td>`;
   ds.forEach((d,i)=>{
     if(d.closed){ html+=`<td class="closed-col">—</td>`; return; }
     if(fired[i]){ html+=`<td class="fired-col" style="color:var(--accent2);font-weight:500;">✓ 発動</td>`; return; }
@@ -376,48 +348,34 @@ function render(){
   });
   html+=`<td style="text-align:right;padding:4px 10px;color:var(--accent2);font-size:11px;">${firedCount}日発動</td></tr>`;
 
-  // separator
   html+=`<tr class="row-sep"><td colspan="${ds.length+2}"></td></tr>`;
+  html+=`<tr class="row-staff-header"><td class="sticky-col" colspan="${ds.length+2}">スタッフ別 労働時間（h）— 緑セル（発動日）に入力した時間に差額時給が適用されます</td></tr>`;
 
-  // staff header
-  html+=`<tr class="row-staff-header"><td class="sticky-col" colspan="${ds.length+2}" style="text-align:left;">スタッフ別 労働時間（h）— 発動日セル（緑）に入力した時間に差額時給が適用されます</td></tr>`;
-
-  // staff rows
   staffList.forEach((s,si)=>{
     const diff=Math.max(0,fw-s.wage);
-    html+=`<tr class="row-staff">
-      <td class="sticky-col staff-name-cell">
+    html+=`<tr class="row-staff"><td class="sticky-col staff-name-cell">
         <input class="name-input" type="text" value="${s.name}" onchange="staffList[${si}].name=this.value;render()"><br>
         <input class="wage-input" type="number" value="${s.wage}" min="900" max="3000" oninput="staffList[${si}].wage=+this.value;render()"><span style="font-size:9px;color:var(--muted);">円/h</span>
       </td>`;
     ds.forEach((d,di)=>{
       const cc=colClass(di);
-      const val=s.hours[di]||'';
-      html+=`<td class="${cc}" style="padding:0;">
-        <input class="staff-hours-input" type="number" value="${val}" min="0" max="24" step="0.5" placeholder="—" ${d.closed?'disabled':''}
-          oninput="staffList[${si}].hours[${di}]=+this.value||0;render()">
-      </td>`;
+      html+=`<td class="${cc}" style="padding:0;"><input class="staff-hours-input" type="number" value="${s.hours[di]||''}" min="0" max="24" step="0.5" placeholder="—" ${d.closed?'disabled':''} oninput="staffList[${si}].hours[${di}]=+this.value||0;render()"></td>`;
     });
     html+=`<td class="bonus-total-cell ${staffBonuses[si]>0?'':'zero'}" style="padding:4px 10px;text-align:right;">¥${fmt(staffBonuses[si])}</td></tr>`;
   });
 
-  // 差額時給 note row
   html+=`<tr class="row-staff-total"><td class="sticky-col">差額時給</td>`;
   ds.forEach((d,i)=>{
     const cc=colClass(i);
-    if(fired[i]){
-      // show per-staff breakdown would be complex; show global diff
-      html+=`<td class="${cc}" style="text-align:right;color:var(--accent2);">+${fmt(fw - (staffList[0]?.wage||1270))}</td>`;
-    } else {
-      html+=`<td class="${cc}" style="color:var(--muted);">—</td>`;
-    }
+    html+=fired[i]
+      ? `<td class="${cc}" style="text-align:right;color:var(--accent2);">+${fmt(fw-(staffList[0]?.wage||1270))}</td>`
+      : `<td class="${cc}" style="color:var(--muted);">—</td>`;
   });
   html+=`<td class="bonus-total-cell" style="padding:4px 10px;text-align:right;">¥${fmt(grandTotal)}</td></tr>`;
 
-  // add staff row
   html+=`<tr class="row-add"><td colspan="${ds.length+2}">
-    <button class="sm-btn primary" onclick="addStaff()" style="font-size:10px;">+ スタッフ追加</button>
-    ${staffList.length>1?`<button class="sm-btn danger" onclick="removeLastStaff()" style="margin-left:6px;font-size:10px;">− 最後のスタッフを削除</button>`:''}
+    <button class="sm-btn primary" onclick="addStaff()">+ スタッフ追加</button>
+    ${staffList.length>1?`<button class="sm-btn danger" onclick="removeLastStaff()" style="margin-left:6px;">− 最後のスタッフを削除</button>`:''}
   </td></tr>`;
 
   html+='</tbody>';
@@ -425,17 +383,8 @@ function render(){
 }
 
 function toggleClosed(i){ days()[i].closed=!days()[i].closed; render(); }
-
-function clearDayData(){
-  days().forEach(d=>{d.revenue=0;d.labor=0;d.closed=false;});
-  staffList.forEach(s=>s.hours.fill(0));
-  render();
-}
-
-function addStaff(){
-  staffList.push({name:'スタッフ'+String.fromCharCode(65+staffList.length),wage:1270,hours:Array(days().length).fill(0)});
-  render();
-}
+function clearDayData(){ days().forEach(d=>{d.revenue=0;d.labor=0;d.closed=false;}); staffList.forEach(s=>s.hours.fill(0)); render(); }
+function addStaff(){ staffList.push({name:'スタッフ'+String.fromCharCode(65+staffList.length),wage:1270,hours:Array(days().length).fill(0)}); render(); }
 function removeLastStaff(){ if(staffList.length>1){staffList.pop();render();} }
 
 render();
